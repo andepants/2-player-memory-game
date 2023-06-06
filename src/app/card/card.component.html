@@ -1,2 +1,1 @@
-<p>card works!</p>
-<img [src]="card.image" alt="{{card.name}}">
+<img [src]="show ? card.image : '../../assets/cards/green_back.png'" [alt]="card.name" (click)="handleClick()">

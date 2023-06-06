@@ -7,8 +7,12 @@ import { Card } from '../card';
   styleUrls: ['./card.component.sass']
 })
 export class CardComponent {
+
+  show = true;
+
   @Input() card!: Card;
-  log() {
-    console.log('card', this.card);
+  handleClick(): any {
+    console.log('clicked', this.card, this.show);
+    this.show = !this.show;
   }
 }

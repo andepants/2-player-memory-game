@@ -1,5 +1,8 @@
 <p>board works!</p>
-<app-card
-  *ngFor="let card of board"
-  [card]="card">
-</app-card>
+<div class="grid-container">
+  <app-card
+    class="grid-item"
+    *ngFor="let card of board"
+    [card]="card">
+  </app-card>
+</div>
