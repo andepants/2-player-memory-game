@@ -7,6 +7,24 @@ import { Card } from '../card';
   styleUrls: ['./board.component.sass']
 })
 export class BoardComponent {
+
+  shuffleBoard(board: Card[]) {
+    let currentIndex = board.length;
+    let temporaryValue: Card;
+    let randomIndex: number;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = board[currentIndex];
+      board[currentIndex] = board[randomIndex];
+      board[randomIndex] = temporaryValue;
+    }
+    return board;
+  }
+
+
   board: Card[] = [
     { name: 'Two of Clubs', value: '2C', image: '../../assets/cards/2C.png' },
     { name: 'Two of Clubs', value: '2C', image: '../../assets/cards/2C.png' },
@@ -29,4 +47,5 @@ export class BoardComponent {
     { name: 'Seven of Clubs', value: '7C', image: '../../assets/cards/7C.png' },
     { name: 'Seven of Clubs', value: '7C', image: '../../assets/cards/7C.png' },
   ];
+  shuffledCards : Card[] = this.shuffleBoard(this.board);
 }

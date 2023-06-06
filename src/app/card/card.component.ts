@@ -12,7 +12,7 @@ export class CardComponent {
 
   @Input() card!: Card;
   handleClick(): any {
-    console.log('clicked', this.card, this.show);
+    // console.log('clicked', this.card, this.show);
     this.show = !this.show;
   }
 }
