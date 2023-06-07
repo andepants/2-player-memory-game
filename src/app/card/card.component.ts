@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Card } from '../card';
 import { ChosenCards } from '../chosen-cards';
 
@@ -14,32 +14,38 @@ export class CardComponent {
   @Input() index!: number;
   @Input() newTurn!: Function;
   @Input() shuffledCards!: Card[];
+  @Input() resetChosenCards!: Function;
+  @Input() removeOutOfGameCards!: Function;
 
   handleClick(): any {
+    console.log('the chosen Cards', this.chosenCards);
 
     if (this.chosenCards[this.card.value]) {
       this.card.show = 'chosen';
       console.log('We Found A Match!');
-      setTimeout(() => {
-        this.newTurn(this.shuffledCards);
-      }, 2000);
+      this.removeOutOfGameCards();
       return;
     }
-
     this.chosenCards[this.card.value] = this.index;
-    console.log('We chose our second card! And its not a match!');
-    console.log('the chosen Cards', this.chosenCards);
+    console.log('the chosen Cards', this.chosenCards)
+
     console.log(Object.keys(this.chosenCards).length, 'length of chosen cards');
-    if (Object.keys(this.chosenCards).length === 2) {
-      this.chosenCards = {};
-      this.card.show = 'chosen';
-      setTimeout(() => {
-        console.log(this.shuffledCards, 'shuffledCards');
-        this.newTurn(this.shuffledCards);
-      }, 2000);
-      return;
-    }
+    setTimeout(() => {
+      if (Object.keys(this.chosenCards).length >= 2) {
+        this.resetChosenCards();
+        this.card.show = 'chosen';
+        setTimeout(() => {
+          console.log(this.shuffledCards, 'shuffledCards');
+          this.newTurn(this.shuffledCards);
+        }, 2000);
+        return;
+      }
+    }, 500);
 
     this.card.show = 'chosen';
+  }
+
+  ngOnChanges(changes : any) {
+    this.chosenCards = changes.currentValue ? changes.currentValue.chosenCards : this.chosenCards;
   }
 }

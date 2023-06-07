@@ -11,6 +11,23 @@ export class BoardComponent {
 
   chosenCards: ChosenCards = {};
 
+  removeOutOfGameCards(shuffledCards: Card[]) {
+    for (let i = 0; i < 20; i++) {
+      if (shuffledCards[i].value == Object.keys(this.chosenCards)[0] || shuffledCards[i].value == Object.keys(this.chosenCards)[1]) {
+        shuffledCards[i].show = 'out-of-game';
+      }
+    }
+    this.shuffledCards = shuffledCards;
+  }
+
+  resetChosenCards() {
+    console.log('reset chosen cards')
+    console.log('chosen cards', this.chosenCards)
+    for (let key in this.chosenCards) {
+      delete this.chosenCards[key];
+    }
+    console.log('chosen cards', this.chosenCards)
+  }
 
   shuffleBoard(board: Card[]) {
     let currentIndex = board.length;
@@ -34,7 +51,7 @@ export class BoardComponent {
 
     this.chosenCards = {};
     for (let i = 0; i < 20; i++) {
-      console.log(shuffledCards[i])
+      // console.log(shuffledCards[i])
       if (shuffledCards[i].show == 'out-of-game') {
         continue;
       }
