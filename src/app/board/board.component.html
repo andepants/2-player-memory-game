@@ -2,7 +2,11 @@
 <div class="grid-container">
   <app-card
     class="grid-item"
-    *ngFor="let card of shuffledCards"
-    [card]="card">
+    *ngFor="let card of shuffledCards; let i = index"
+    [card]="card"
+    [chosenCards]="chosenCards"
+    [index]="i"
+    [newTurn]="newTurn"
+    [shuffledCards]="shuffledCards">
   </app-card>
 </div>

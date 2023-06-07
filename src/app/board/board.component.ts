@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Card } from '../card';
+import { ChosenCards } from '../chosen-cards';
 
 @Component({
   selector: 'app-board',
@@ -7,6 +8,9 @@ import { Card } from '../card';
   styleUrls: ['./board.component.sass']
 })
 export class BoardComponent {
+
+  chosenCards: ChosenCards = {};
+
 
   shuffleBoard(board: Card[]) {
     let currentIndex = board.length;
@@ -24,28 +28,42 @@ export class BoardComponent {
     return board;
   }
 
+  newTurn(shuffledCards : Card[]) {
+    console.log('new turn');
+    console.log(shuffledCards, 'shuffledCards')
+
+    this.chosenCards = {};
+    for (let i = 0; i < 20; i++) {
+      console.log(shuffledCards[i])
+      if (shuffledCards[i].show == 'out-of-game') {
+        continue;
+      }
+      shuffledCards[i].show = 'not-chosen';
+    }
+  }
+
 
   board: Card[] = [
-    { name: 'Two of Clubs', value: '2C', image: '../../assets/cards/2C.png' },
-    { name: 'Two of Clubs', value: '2C', image: '../../assets/cards/2C.png' },
-    { name: 'Two of Hearts', value: '2H', image: '../../assets/cards/2H.png' },
-    { name: 'Two of Hearts', value: '2H', image: '../../assets/cards/2H.png' },
-    { name: 'Ace of Spades', value: 'AS', image: '../../assets/cards/AS.png' },
-    { name: 'Ace of Spades', value: 'AS', image: '../../assets/cards/AS.png' },
-    { name: 'Queen of Hearts', value: 'QH', image: '../../assets/cards/QH.png' },
-    { name: 'Queen of Hearts', value: 'QH', image: '../../assets/cards/QH.png' },
-    { name: 'King of Diamonds', value: 'KD', image: '../../assets/cards/KD.png' },
-    { name: 'King of Diamonds', value: 'KD', image: '../../assets/cards/KD.png' },
-    { name: 'Jack of Spades', value: 'JS', image: '../../assets/cards/JS.png' },
-    { name: 'Jack of Spades', value: 'JS', image: '../../assets/cards/JS.png' },
-    { name: 'Ten of Clubs', value: '10C', image: '../../assets/cards/10C.png' },
-    { name: 'Ten of Clubs', value: '10C', image: '../../assets/cards/10C.png' },
-    { name: 'Nine of Diamonds', value: '9D', image: '../../assets/cards/9D.png' },
-    { name: 'Nine of Diamonds', value: '9D', image: '../../assets/cards/9D.png' },
-    { name: 'Eight of Spades', value: '8S', image: '../../assets/cards/8S.png' },
-    { name: 'Eight of Spades', value: '8S', image: '../../assets/cards/8S.png' },
-    { name: 'Seven of Clubs', value: '7C', image: '../../assets/cards/7C.png' },
-    { name: 'Seven of Clubs', value: '7C', image: '../../assets/cards/7C.png' },
+    { name: 'Two of Clubs', value: '2C', image: '../../assets/cards/2C.png', show: 'not-chosen' },
+    { name: 'Two of Clubs', value: '2C', image: '../../assets/cards/2C.png', show: 'not-chosen' },
+    { name: 'Two of Hearts', value: '2H', image: '../../assets/cards/2H.png', show: 'not-chosen' },
+    { name: 'Two of Hearts', value: '2H', image: '../../assets/cards/2H.png', show: 'not-chosen' },
+    { name: 'Ace of Spades', value: 'AS', image: '../../assets/cards/AS.png', show: 'not-chosen' },
+    { name: 'Ace of Spades', value: 'AS', image: '../../assets/cards/AS.png', show: 'not-chosen' },
+    { name: 'Queen of Hearts', value: 'QH', image: '../../assets/cards/QH.png', show: 'not-chosen' },
+    { name: 'Queen of Hearts', value: 'QH', image: '../../assets/cards/QH.png', show: 'not-chosen' },
+    { name: 'King of Diamonds', value: 'KD', image: '../../assets/cards/KD.png', show: 'not-chosen' },
+    { name: 'King of Diamonds', value: 'KD', image: '../../assets/cards/KD.png', show: 'not-chosen' },
+    { name: 'Jack of Spades', value: 'JS', image: '../../assets/cards/JS.png', show: 'not-chosen' },
+    { name: 'Jack of Spades', value: 'JS', image: '../../assets/cards/JS.png', show: 'not-chosen' },
+    { name: 'Ten of Clubs', value: '10C', image: '../../assets/cards/10C.png', show: 'not-chosen' },
+    { name: 'Ten of Clubs', value: '10C', image: '../../assets/cards/10C.png', show: 'not-chosen' },
+    { name: 'Nine of Diamonds', value: '9D', image: '../../assets/cards/9D.png', show: 'not-chosen' },
+    { name: 'Nine of Diamonds', value: '9D', image: '../../assets/cards/9D.png', show: 'not-chosen' },
+    { name: 'Eight of Spades', value: '8S', image: '../../assets/cards/8S.png', show: 'not-chosen' },
+    { name: 'Eight of Spades', value: '8S', image: '../../assets/cards/8S.png', show: 'not-chosen' },
+    { name: 'Seven of Clubs', value: '7C', image: '../../assets/cards/7C.png', show: 'not-chosen' },
+    { name: 'Seven of Clubs', value: '7C', image: '../../assets/cards/7C.png', show: 'not-chosen' },
   ];
   shuffledCards : Card[] = this.shuffleBoard(this.board);
 }
