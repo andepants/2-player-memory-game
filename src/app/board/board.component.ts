@@ -17,6 +17,7 @@ export class BoardComponent {
         shuffledCards[i].show = 'out-of-game';
       }
     }
+    console.log('shuffled cards', shuffledCards)
     this.shuffledCards = shuffledCards;
   }
 
@@ -27,6 +28,7 @@ export class BoardComponent {
       delete this.chosenCards[key];
     }
     console.log('chosen cards', this.chosenCards)
+    this.chosenCards = this.chosenCards;
   }
 
   shuffleBoard(board: Card[]) {

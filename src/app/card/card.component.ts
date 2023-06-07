@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Card } from '../card';
 import { ChosenCards } from '../chosen-cards';
 
@@ -45,7 +45,12 @@ export class CardComponent {
     this.card.show = 'chosen';
   }
 
-  ngOnChanges(changes : any) {
-    this.chosenCards = changes.currentValue ? changes.currentValue.chosenCards : this.chosenCards;
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.chosenCards, 'changed');
+    if (changes['chosenCards']) {
+      this.chosenCards = changes['chosenCards'].currentValue
+        ? changes['chosenCards'].currentValue
+        : this.chosenCards;
+    }
   }
 }
