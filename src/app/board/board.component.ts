@@ -8,7 +8,10 @@ import { ChosenCardService } from '../chosen-card.service';
 })
 export class BoardComponent {
 
+  player1Score: number = 0;
+  player2Score: number = 0;
   chosenCardState: any;
+  turn: boolean = true;
 
   constructor(private chosenCardService: ChosenCardService) {
     this.chosenCardState = this.chosenCardService.getState();
@@ -52,6 +55,11 @@ export class BoardComponent {
         shuffledCards[i].show = 'not-chosen';
       }
     }
+  }
+
+  changeTurn(turn : boolean): void {
+    console.log('changeTurn', !turn)
+    this.turn = !turn;
   }
 
   board: Card[] = [

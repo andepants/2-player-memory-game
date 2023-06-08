@@ -1,3 +1,9 @@
+<span>Player 1: </span>
+<div>{{ player1Score }}</div>
+<span>Player 2: </span>
+<div>{{ player2Score }}</div>
+
+<h5>{{ turn ? "Player 1's Turn " : "Player 2's Turn"}}</h5>
 <div class="grid-container">
   <app-card
     class="grid-item"
@@ -6,6 +12,8 @@
     [index]="i"
     [flipAllMatches]="flipAllMatches"
     [shuffledCards]="shuffledCards"
-    [resetGuesses]="resetGuesses">
+    [resetGuesses]="resetGuesses"
+    [turn]="turn"
+    [changeTurn]="changeTurn">
   </app-card>
 </div>

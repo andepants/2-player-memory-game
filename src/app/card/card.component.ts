@@ -26,6 +26,8 @@ export class CardComponent {
   @Input() flipAllMatches!: Function;
   @Input() shuffledCards!: Card[];
   @Input() resetGuesses!: Function;
+  @Input() changeTurn!: Function;
+  @Input() turn!: boolean;
 
   handleClick(): any {
     console.log('shuffledCards', this.shuffledCards);
@@ -43,6 +45,7 @@ export class CardComponent {
       setTimeout(() => {
         this.resetGuesses(this.shuffledCards);
         this.chosenCardService.setState({});
+        this.changeTurn(this.turn);
       }, 1000);
     }
     console.log(this.chosenCardService.getState(), 'chosenCardService.getState()');
