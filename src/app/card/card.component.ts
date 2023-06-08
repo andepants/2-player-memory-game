@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Card } from '../card';
 import { ChosenCardService } from '../chosen-card.service';
 
@@ -10,9 +10,17 @@ import { ChosenCardService } from '../chosen-card.service';
 export class CardComponent {
 
   chosenCardState: any;
+  @Input() card!: Card;
+  @Input() index!: number;
+  @Input() flipAllMatches!: Function;
+  @Input() shuffledCards!: Card[];
+  @Input() resetGuesses!: Function;
+  @Input() turn!: boolean;
+  @Output() turnChange = new EventEmitter<boolean>();
 
   constructor(private chosenCardService: ChosenCardService) {
     this.chosenCardState = this.chosenCardService.getState();
+    this.turn = this.chosenCardService.getTurn();
   }
 
   updateChosenCardState(card : Card): void {
@@ -21,13 +29,14 @@ export class CardComponent {
     this.chosenCardState = this.chosenCardService.getState();
   }
 
-  @Input() card!: Card;
-  @Input() index!: number;
-  @Input() flipAllMatches!: Function;
-  @Input() shuffledCards!: Card[];
-  @Input() resetGuesses!: Function;
-  @Input() changeTurn!: Function;
-  @Input() turn!: boolean;
+  updateTurnState(turn : boolean): void {
+    console.log(this.chosenCardService.getTurn(), 'this.chosenCardService.getTurn()');
+    this.turn = this.chosenCardService.getTurn();
+    this.chosenCardService.setTurn(!turn);
+    this.turn = this.chosenCardService.getTurn();
+    this.turnChange.emit(!turn)
+    console.log('this.turn', this.turn);
+  }
 
   handleClick(): any {
     console.log('shuffledCards', this.shuffledCards);
@@ -45,7 +54,7 @@ export class CardComponent {
       setTimeout(() => {
         this.resetGuesses(this.shuffledCards);
         this.chosenCardService.setState({});
-        this.changeTurn(this.turn);
+        this.updateTurnState(this.turn);
       }, 1000);
     }
     console.log(this.chosenCardService.getState(), 'chosenCardService.getState()');

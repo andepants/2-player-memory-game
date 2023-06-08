@@ -11,10 +11,11 @@ export class BoardComponent {
   player1Score: number = 0;
   player2Score: number = 0;
   chosenCardState: any;
-  turn: boolean = true;
+  turn: boolean;
 
   constructor(private chosenCardService: ChosenCardService) {
     this.chosenCardState = this.chosenCardService.getState();
+    this.turn = this.chosenCardService.getTurn();
   }
 
   updateChosenCardState(card : Card): void {
@@ -55,11 +56,6 @@ export class BoardComponent {
         shuffledCards[i].show = 'not-chosen';
       }
     }
-  }
-
-  changeTurn(turn : boolean): void {
-    console.log('changeTurn', !turn)
-    this.turn = !turn;
   }
 
   board: Card[] = [
