@@ -1,3 +1,4 @@
+<h5>Scoring</h5>
 <span>Player 1: </span>
 <div>{{ player1Score }}</div>
 <span>Player 2: </span>
@@ -5,7 +6,7 @@
 
 <h5>{{ this.turn ? "Player 1's Turn " : "Player 2's Turn"}}</h5>
 
-<div *ngIf="player1Score === 1 || player2Score === 1">
+<div *ngIf="player1Score + player2Score === 2">
   <dialog open>
     <div *ngIf="player1Score > player2Score">
       <h1>Player 1 Wins!</h1>
@@ -13,23 +14,28 @@
     <div *ngIf="player2Score > player1Score">
       <h1>Player 2 Wins!</h1>
     </div>
+    <div *ngIf="player1Score === player2Score">
+      <h1>It's a Tie!</h1>
+    </div>
     <form method="dialog">
       <button (click)="newGame()">Play Again?</button>
     </form>
   </dialog>
 </div>
 
-<div class="grid-container">
-  <app-card
-    class="grid-item"
-    *ngFor="let card of shuffledCards; let i = index"
-    [card]="card"
-    [index]="i"
-    [flipAllMatches]="flipAllMatches"
-    [shuffledCards]="shuffledCards"
-    [resetGuesses]="resetGuesses"
-    [(turn)]="turn"
-    [(player1Score)]="player1Score"
-    [(player2Score)]="player2Score">
-  </app-card>
+<div>
+  <div class="grid-container">
+    <app-card
+      class="grid-item"
+      *ngFor="let card of shuffledCards; let i = index"
+      [card]="card"
+      [index]="i"
+      [flipAllMatches]="flipAllMatches"
+      [shuffledCards]="shuffledCards"
+      [resetGuesses]="resetGuesses"
+      [(turn)]="turn"
+      [(player1Score)]="player1Score"
+      [(player2Score)]="player2Score">
+    </app-card>
+  </div>
 </div>
