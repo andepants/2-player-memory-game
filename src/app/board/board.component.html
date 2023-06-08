@@ -6,7 +6,7 @@
 
 <h5>{{ this.turn ? "Player 1's Turn " : "Player 2's Turn"}}</h5>
 
-<div *ngIf="player1Score + player2Score === 2">
+<div *ngIf="player1Score + player2Score === 10">
   <dialog open>
     <div *ngIf="player1Score > player2Score">
       <h1>Player 1 Wins!</h1>

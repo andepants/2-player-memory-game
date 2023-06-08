@@ -27,10 +27,6 @@ export class CardComponent {
     this.turn = this.chosenCardService.getTurn();
   }
 
-  someFunction() {
-    console.log('some function');
-  }
-
   updateChosenCardState(card : Card): void {
     this.chosenCardState = this.chosenCardService.getState();
     this.chosenCardService.setState({...this.chosenCardState, [card.value] : card.value});
@@ -45,7 +41,6 @@ export class CardComponent {
   }
 
   handleClick(): any {
-    console.log('chosen card state', this.chosenCardState, 'card value', this.card.value, 'card show', this.card.show, 'turn', this.turn, 'player scores 1, 2')
     this.chosenCardState = this.chosenCardService.getState();
     if (this.card.show === 'chosen') { // already chosen
       return;
@@ -69,6 +64,5 @@ export class CardComponent {
         this.updateTurnState(this.turn);
       }, 1000);
     }
-    console.log(this.player1Score, this.player2Score, 'player scores 1, 2')
   }
 }
