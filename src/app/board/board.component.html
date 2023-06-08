@@ -4,6 +4,21 @@
 <div>{{ player2Score }}</div>
 
 <h5>{{ this.turn ? "Player 1's Turn " : "Player 2's Turn"}}</h5>
+
+<div *ngIf="player1Score === 1 || player2Score === 1">
+  <dialog open>
+    <div *ngIf="player1Score > player2Score">
+      <h1>Player 1 Wins!</h1>
+    </div>
+    <div *ngIf="player2Score > player1Score">
+      <h1>Player 2 Wins!</h1>
+    </div>
+    <form method="dialog">
+      <button (click)="newGame()">Play Again?</button>
+    </form>
+  </dialog>
+</div>
+
 <div class="grid-container">
   <app-card
     class="grid-item"

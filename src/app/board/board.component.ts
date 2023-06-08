@@ -12,10 +12,22 @@ export class BoardComponent {
   player2Score: number = 0;
   chosenCardState: any;
   turn: boolean;
+  gameIsDone: boolean = false;
 
   constructor(private chosenCardService: ChosenCardService) {
     this.chosenCardState = this.chosenCardService.getState();
     this.turn = this.chosenCardService.getTurn();
+  }
+
+  newGame(): void {
+    console.log('starting a new game');
+    this.shuffledCards = this.shuffleBoard(this.board);
+    for (let i = 0; i < this.shuffledCards.length; i++) {
+      this.shuffledCards[i].show = 'not-chosen';
+    }
+    this.player1Score = 0;
+    this.player2Score = 0;
+    this.chosenCardService.setState({});
   }
 
   updateChosenCardState(card : Card): void {
