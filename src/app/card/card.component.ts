@@ -47,7 +47,7 @@ export class CardComponent {
       return;
     }
     this.chosenCardState = this.chosenCardService.getState();
-    if (this.card.show === 'chosen' || this.card.show === 'matched') { // already chosen
+    if (this.card.show === 'chosen' || this.card.show === 'matched') { // already chosen/matched
       return;
     }
     this.card.show = 'chosen';
@@ -72,7 +72,6 @@ export class CardComponent {
         this.chosenCardService.setState({});
         this.updateTurnState(this.turn);
         this.chosenCardService.setTimeout(false);
-        this.isTimeoutRunning = this.chosenCardService.getTimeout();
       }, 1000);
     }
   }

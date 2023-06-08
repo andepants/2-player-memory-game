@@ -21,9 +21,8 @@ export class BoardComponent {
   randomTurnGenerator(): boolean {
     if (Math.floor(Math.random() * 2) === 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   newGame(): void {
@@ -44,7 +43,7 @@ export class BoardComponent {
     this.chosenCardState = this.chosenCardService.getState();
   }
 
-  shuffleBoard(board: Card[]) {
+  shuffleBoard(board: Card[]) : Card[]{
     let currentIndex = board.length;
     let temporaryValue: Card;
     let randomIndex: number;
