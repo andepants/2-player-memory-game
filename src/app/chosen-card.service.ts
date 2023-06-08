@@ -6,9 +6,18 @@ import { ChosenCards } from './chosen-cards';
 })
 export class ChosenCardService {
   private turnState: boolean = true;
+  private isTimeoutRunning: boolean = false;
   private chosenCardState: ChosenCards = {};
 
   constructor() { }
+
+  getTimeout(): boolean {
+    return this.isTimeoutRunning;
+  }
+
+  setTimeout(newState: boolean): void {
+    this.isTimeoutRunning = newState;
+  }
 
   getTurn(): boolean {
     return this.turnState;

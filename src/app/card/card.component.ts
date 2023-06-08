@@ -10,6 +10,7 @@ import { ChosenCardService } from '../chosen-card.service';
 export class CardComponent {
 
   chosenCardState: any;
+  isTimeoutRunning: boolean = false;
   @Input() card!: Card;
   @Input() index!: number;
   @Input() flipAllMatches!: Function;
@@ -41,8 +42,12 @@ export class CardComponent {
   }
 
   handleClick(): any {
+    this.isTimeoutRunning = this.chosenCardService.getTimeout();
+    if (this.isTimeoutRunning) {
+      return;
+    }
     this.chosenCardState = this.chosenCardService.getState();
-    if (this.card.show === 'chosen') { // already chosen
+    if (this.card.show === 'chosen' || this.card.show === 'matched') { // already chosen
       return;
     }
     this.card.show = 'chosen';
@@ -55,13 +60,19 @@ export class CardComponent {
         this.player2ScoreChange.emit(this.player2Score);
       }
       this.flipAllMatches(this.shuffledCards);
+      this.chosenCardService.setState({});
+      return;
     }
     this.updateChosenCardState(this.card)
     if (Object.keys(this.chosenCardState).length >= 2) { // no match - 2 cards picked
+      this.chosenCardService.setTimeout(true);
+      this.isTimeoutRunning = this.chosenCardService.getTimeout();
       setTimeout(() => {
         this.resetGuesses(this.shuffledCards);
         this.chosenCardService.setState({});
         this.updateTurnState(this.turn);
+        this.chosenCardService.setTimeout(false);
+        this.isTimeoutRunning = this.chosenCardService.getTimeout();
       }, 1000);
     }
   }
