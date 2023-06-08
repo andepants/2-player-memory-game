@@ -1,14 +1,8 @@
-<p>board works!</p>
 <div class="grid-container">
   <app-card
     class="grid-item"
     *ngFor="let card of shuffledCards; let i = index"
     [card]="card"
-    [chosenCards]="chosenCards"
-    [index]="i"
-    [newTurn]="newTurn"
-    [shuffledCards]="shuffledCards"
-    [resetChosenCards]="resetChosenCards"
-    [removeOutOfGameCards]="removeOutOfGameCards">
+    [index]="i">
   </app-card>
 </div>
