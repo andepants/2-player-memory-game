@@ -3,6 +3,9 @@
     class="grid-item"
     *ngFor="let card of shuffledCards; let i = index"
     [card]="card"
-    [index]="i">
+    [index]="i"
+    [flipAllMatches]="flipAllMatches"
+    [shuffledCards]="shuffledCards"
+    [resetGuesses]="resetGuesses">
   </app-card>
 </div>

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Card } from '../card';
-import { ChosenCards } from '../chosen-cards';
 import { ChosenCardService } from '../chosen-card.service';
 
 @Component({
@@ -24,12 +23,28 @@ export class CardComponent {
 
   @Input() card!: Card;
   @Input() index!: number;
+  @Input() flipAllMatches!: Function;
+  @Input() shuffledCards!: Card[];
+  @Input() resetGuesses!: Function;
 
   handleClick(): any {
-    this.updateChosenCardState(this.card)
-    console.log('clicked', this.card);
-    console.log(this.chosenCardState, 'chosenCardState');
-    console.log(this.chosenCardService.getState(), 'chosenCardService.getState()');
+    console.log('shuffledCards', this.shuffledCards);
+    this.chosenCardState = this.chosenCardService.getState();
+    if (this.card.show === 'chosen') { // already chosen
+      return;
+    }
     this.card.show = 'chosen';
+    if (this.chosenCardState[this.card.value]) { // found match
+      this.flipAllMatches(this.shuffledCards);
+    }
+    this.updateChosenCardState(this.card)
+    if (Object.keys(this.chosenCardState).length >= 2) { // no match - 2 cards picked
+      console.log('chose 2+ cards');
+      setTimeout(() => {
+        this.resetGuesses(this.shuffledCards);
+        this.chosenCardService.setState({});
+      }, 1000);
+    }
+    console.log(this.chosenCardService.getState(), 'chosenCardService.getState()');
   }
 }

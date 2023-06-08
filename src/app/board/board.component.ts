@@ -1,11 +1,24 @@
 import { Component } from '@angular/core';
 import { Card } from '../card';
+import { ChosenCardService } from '../chosen-card.service';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.sass']
 })
 export class BoardComponent {
+
+  chosenCardState: any;
+
+  constructor(private chosenCardService: ChosenCardService) {
+    this.chosenCardState = this.chosenCardService.getState();
+  }
+
+  updateChosenCardState(card : Card): void {
+    this.chosenCardState = this.chosenCardService.getState();
+    this.chosenCardService.setState({...this.chosenCardState, [card.value] : card.value});
+    this.chosenCardState = this.chosenCardService.getState();
+  }
 
   shuffleBoard(board: Card[]) {
     let currentIndex = board.length;
@@ -21,6 +34,24 @@ export class BoardComponent {
       board[randomIndex] = temporaryValue;
     }
     return board;
+  }
+
+  flipAllMatches(shuffledCards: Card[]) {
+    this.chosenCardState = this.chosenCardService.getState();
+    for (let i = 0; i < shuffledCards.length; i++) {
+      if (this.chosenCardState[shuffledCards[i].value]) {
+        shuffledCards[i].show = 'matched';
+      }
+    }
+  }
+
+  resetGuesses(shuffledCards: Card[]): void {
+    console.log('resetGuesses');
+    for (let i = 0; i < shuffledCards.length; i++) {
+      if (shuffledCards[i].show === 'chosen') {
+        shuffledCards[i].show = 'not-chosen';
+      }
+    }
   }
 
   board: Card[] = [

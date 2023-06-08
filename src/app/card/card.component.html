@@ -1,10 +1,10 @@
 <img
   [src]=
-    "card.show === 'out-of-game'
-      ? '../../assets/cards/red_back.png'
+    "card.show === 'matched'
+      ? '../../assets/cards/green_back.png'
       : card.show === 'chosen'
         ? card.image
-        : '../../assets/cards/green_back.png'"
+        : '../../assets/cards/red_back.png'"
   [alt]="card.name"
   (click)="handleClick()"
 >
