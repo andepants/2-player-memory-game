@@ -37,12 +37,6 @@ export class BoardComponent {
     this.chosenCardService.setTurn(this.turn);
   }
 
-  updateChosenCardState(card : Card): void {
-    this.chosenCardState = this.chosenCardService.getState();
-    this.chosenCardService.setState({...this.chosenCardState, [card.value] : card.value});
-    this.chosenCardState = this.chosenCardService.getState();
-  }
-
   shuffleBoard(board: Card[]) : Card[]{
     let currentIndex = board.length;
     let temporaryValue: Card;
