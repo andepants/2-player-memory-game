@@ -47,7 +47,8 @@ export class CardComponent {
       return;
     }
     this.chosenCardState = this.chosenCardService.getState();
-    if (this.card.show === 'chosen' || this.card.show === 'matched') { // already chosen/matched
+    const alreadyChosenOrMatched = this.card.show === 'chosen' || this.card.show === 'matched';
+    if (alreadyChosenOrMatched) { // already chosen/matched
       return;
     }
     this.card.show = 'chosen';
@@ -64,7 +65,8 @@ export class CardComponent {
       return;
     }
     this.updateChosenCardState(this.card)
-    if (Object.keys(this.chosenCardState).length >= 2) { // no match - 2 cards picked
+    const twoCardsPicked = Object.keys(this.chosenCardState).length >= 2;
+    if (twoCardsPicked) { // no match - 2 cards picked
       this.chosenCardService.setTimeout(true);
       this.isTimeoutRunning = this.chosenCardService.getTimeout();
       setTimeout(() => {
